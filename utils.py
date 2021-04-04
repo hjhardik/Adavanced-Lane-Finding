@@ -65,16 +65,27 @@ def drawPoints(img, points):
     return img
 
 # HISTOGRAM IMPLEMENTATION (TO FIND TURNING LEFT/RIGHT)
-def getHistogram(img,minPer=0.1,display= False,region=1): 
+def getHistogram(img, minPer=0.1, display= False, region=1): 
+    # simply sum all the pixels in the y direction
     if region == 1:
+        # find histvalues for the complete region
         histValues = np.sum(img, axis=0)
     else:
+        # find histvalues for ONLY the bottom (1/n)th region where n is region value
         histValues = np.sum(img[img.shape[0]//region:,:], axis=0)
  
     #print(histValues)
+    
+    # Some of the pixels in our image might just be noise. So we don’t want to use them in our 
+    # calculation. Therefore we will set a threshold value which will be the minimum value required
+    # for any column to qualify as part of the path and not noise. We can set a hard-coded value but
+    # it is better to get it based on the live data. So we will find the maximum sum value and 
+    # multiply our user defined percentage to it to create our threshold value.
     maxValue = np.max(histValues)
     minValue = minPer*maxValue
- 
+    
+    # To get the value of the curvature we will find the indices of all the columns that have value 
+    # more than our threshold and then we will average our indices.
     indexArray = np.where(histValues >= minValue)
     basePoint = int(np.average(indexArray))
     #print(basePoint)
@@ -88,6 +99,8 @@ def getHistogram(img,minPer=0.1,display= False,region=1):
  
     return basePoint
  
+# stack all the display windows
+# (ONLY FOR DISPLAY PURPOSES, NO EFFECT ON PROGRAM) 
 def stackImages(scale,imgArray):
     rows = len(imgArray)
     cols = len(imgArray[0])
