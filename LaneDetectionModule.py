@@ -9,14 +9,15 @@ avgVal=10
 def getLaneCurve(img, display=2):
     # create a copy image to display warp points
     imgCopy = img.copy()
+    imgResult = img.copy()
     
     ##1 First find the threshold image
     imgThres = utils.thresholding(img)
 
     ##2 Now find the warped tracking coordinates
-    h, w, c = img.shape
+    hT, wT, c = img.shape
     points = utils.valTrackbars()
-    imgWarp = utils.warpImg(imgThres, points, w, h)
+    imgWarp = utils.warpImg(imgThres, points, wT, hT)
     imgWarpPoints = utils.drawPoints(imgCopy, points)
     
     ##3 We have to find the center of the base which will give us the center line and 
@@ -36,7 +37,7 @@ def getLaneCurve(img, display=2):
  
     ##5 Display
     if display != 0:
-        imgInvWarp = utlis.warpImg(imgWarp, points, wT, hT, inv=True)
+        imgInvWarp = utils.warpImg(imgWarp, points, wT, hT, inv=True)
         imgInvWarp = cv2.cvtColor(imgInvWarp, cv2.COLOR_GRAY2BGR)
         imgInvWarp[0:hT // 3, 0:wT] = 0, 0, 0
         imgLaneColor = np.zeros_like(img)
@@ -55,11 +56,11 @@ def getLaneCurve(img, display=2):
         #cv2.putText(imgResult, 'FPS ' + str(int(fps)), (20, 40), cv2.FONT_HERSHEY_SIMPLEX, 1, (230, 50, 50), 3);
     if display == 2:
         # stack all the windows together (just for display purposes, no other requirement)
-        imgStacked = utlis.stackImages(0.7, ([img, imgWarpPoints, imgWarp],
+        imgStacked = utils.stackImages(0.7, ([img, imgWarpPoints, imgWarp],
                                              [imgHist, imgLaneColor, imgResult]))
         cv2.imshow('ImageStack', imgStacked)
     elif display == 1:
-        cv2.imshow('Resutlt', imgResult)
+        cv2.imshow('Result', imgResult)
  
     ### NORMALIZATION
     curve = curve/100
