@@ -9,7 +9,7 @@ cap = cv2.VideoCapture(1)
 cap.set(3, frameWidth)
 cap.set(4, frameHeight)
  
- 
+#trackbar change will call empty function 
 def empty(a):
     pass
  
