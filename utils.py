@@ -64,7 +64,7 @@ def drawPoints(img, points):
         cv2.circle(img, (int(points[x][0]), int(points[x][1])), 12, (0,0,255), cv2.FILLED)
     return img
 
-# HISTOGRAM IMPLEMENTATION (TO FIND TURNING LEFT/RIGHT)
+# HISTOGRAM IMPLEMENTATION (TO FIND CURVE TURNING LEFT/RIGHT)
 def getHistogram(img, minPer=0.1, display= False, region=1): 
     # simply sum all the pixels in the y direction
     if region == 1:
