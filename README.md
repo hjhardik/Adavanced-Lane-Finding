@@ -1,4 +1,4 @@
-Direction for use:
+**Direction for use**:
 
 MainRobot.py, MotorModule.py, WebcamModule.py scripts will only needed when connecting to Raspberry Pi using RPi.
 
