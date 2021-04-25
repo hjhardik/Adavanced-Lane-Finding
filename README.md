@@ -1,3 +1,5 @@
+**Lane Detection Algorithm for Autonomous Vehicles using Computer Vision (OpenCV)**
+
 **Directions for use**:
 
 *MainRobot.py, MotorModule.py, WebcamModule.py scripts will only needed when connecting to Raspberry Pi using RPi.*
